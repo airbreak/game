@@ -8,6 +8,7 @@ $signPackage = $jssdk->GetSignPackage();
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width ,initial-scale=1.0,maximum-scale=1.0,user-scalable=0;" />
+	<meta name="sharecontent" data-msg-img="http://wechat.hisihi.com/game/area/images/home/sharelogo.png" data-msg-title="轰炸设计师" data-msg-content="轰炸设计师" data-msg-callBack="" data-line-img="http://wechat.hisihi.com/game/area/images/home/sharelogo.png" data-line-title="轰炸设计师" data-line-callBack=""/>
     <title>轰炸设计师</title>
 	<link href="area/css/home.css" rel="stylesheet/less" />
     <script src="area/js/jquery-1.8.2.min.js"></script>
