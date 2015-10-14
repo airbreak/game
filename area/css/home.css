@@ -12,9 +12,19 @@ body {
     overflow: hidden;
 }
 
-    body * {
-        font-family: 'Microsoft YaHei';
-    }
+body * {
+    font-family: 'Microsoft YaHei';
+}
+
+#noAttentionImg {
+    margin:0;
+    padding:0;
+    width:0px; 
+    height:0px; 
+    overflow:hidden;
+    position:absolute;
+    top:0px;
+}
 
 ul {
     margin: auto;
