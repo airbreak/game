@@ -20,7 +20,7 @@ $signPackage = $jssdk->GetSignPackage();
     <script src="area/js/home.js"></script>
 </head>
 <body>
-  <img src="http://wechat.hisihi.com/game/area/images/home/sharelogo.png" style="width:0px; height:0px; overflow:hidden"/>
+  <img src="http://wechat.hisihi.com/game/area/images/home/sharelogo1.png" style="width:0px; height:0px; overflow:hidden"/>
   <div class="wrapper">
         <div class="contentWrapper wrapperItem">
              <div class="aboutGameNotice btnsItem"></div>
