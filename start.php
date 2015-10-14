@@ -187,14 +187,11 @@ $signPackage = $jssdk->GetSignPackage();
     });
 	
 	wx.onMenuShareTimeline({
-    title: '轰炸设计师', // 分享标题
-      desc: '不服来solo！！！', // 分享描述
+      title: '轰炸设计师', // 分享标题
       link: 'http://wechat.hisihi.com/game/start.php', // 分享链接
-      imgUrl: 'http://wechat.hisihi.com/game/area/images/home/sharelogo.png', // 分享图标
-	  type: 'link', // 分享类型,music、video或link，不填默认为link
-      dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+      imgUrl: 'http://wechat.hisihi.com/game/area/images/home/sharelogo.png', // 分享图标	 
 	  trigger:function(){
-		this.desc= '噢耶！我得到了 '+ window.shareGameResults.levelName + ' 等级，获得了" ' + window.shareGameResults.scorcesName + '" 的称号，不服来solo！！！';
+		this.title= '轰炸设计师 ——— 噢耶！我得到了 '+ window.shareGameResults.levelName + ' 等级，获得了" ' + window.shareGameResults.scorcesName + '" 的称号，不服来solo！！！';
 	  },
       success: function () {
         // 用户确认分享后执行的回调函数

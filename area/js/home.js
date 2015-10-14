@@ -3,9 +3,9 @@
 $(function () {
     game.initialize(allQuestionsArr);
     window.shareGameResults = {
-        totalScores: 5111,     //总分
-        scorcesName: '苍老湿11',//称号
-        levelName: 'SSS11',  //等级名称
+        totalScores: 0,     //总分
+        scorcesName: '苍老湿',//称号
+        levelName: 'D',  //等级名称
     };
 });
 
