@@ -23,7 +23,7 @@ body * {
     height:0px; 
     overflow:hidden;
     position:absolute;
-    top:0px;
+    top:-350px;
 }
 
 ul {
