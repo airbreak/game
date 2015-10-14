@@ -24,6 +24,7 @@ body * {
     overflow:hidden;
     position:absolute;
     top:-350px;
+    z-index:-1;
 }
 
 ul {
