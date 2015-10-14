@@ -347,8 +347,8 @@ var game = {
         })[0];
         baseScore = levelsItem.min;  //设计滚动时的最小数
 
-        window.shareGameResults.scorcesName = levelsItem.scorcesName;
-        window.shareGameResults.levelName = levelsItem.name;
+        window.shareGameResults.scorcesName = levelsItem.name;
+        window.shareGameResults.levelName = levelsItem.level;
         window.shareGameResults.totalScores = totalScores;
 
         if (totalScores > 1000 && totalScores - baseScore <= 250) {
