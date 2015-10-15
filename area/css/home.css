@@ -108,41 +108,17 @@ ul {
 
 .btnsContents {
     width: 100%;
+    position:absolute;
+    height:30%;
+    width:100%;
 }
 
 .btns {
     opacity: 0;
-    margin-top: 22%;
     animation: aBtns .5s;
-    /*-webkit-animation: aBtns .5s;
-    -moz-animation: aBtns .5s;
-    -o-animation: aBtns .5s;*/
-    /*animation:aBtns 5.5s;*/
     transition-delay: 5s;
-    /*-webkit-transition-delay: 5s;
-    -moz-transition-delay: 5s;
-    -o-transition-delay: 5s;*/
     animation-fill-mode: forwards;
-    /*-webkit-animation-fill-mode: forwards;
-    -moz-animation-fill-mode: forwards;
-    -o-animation-fill-mode: forwards;*/
 }
-
-/*@-webkit-keyframes aBtns {
-    100% {
-        opacity: 1;
-    }
-}
-@-moz-keyframes aBtns {
-    100% {
-        opacity: 1;
-    }
-}
-@-o-keyframes aBtns {
-    100% {
-        opacity: 1;
-    }
-}*/
 @keyframes aBtns {
     100% {
         opacity: 1;
@@ -640,6 +616,19 @@ ul {
     }
 }
 
+.shareToFriendsTips {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display:none;
+    background: url(../images/gameover/10.png) 0 0 no-repeat;
+    background-size: @backgroundimgWrapper;
+    transition: width 1s ease;
+    z-index:200;
+}
+
 /**分数面板**/
 .scoresWrapper {
     position: absolute;
@@ -855,6 +844,12 @@ ul {
     z-index:2;
 }
 
+.showCorrectAnswers a {
+    display: inline-block;
+    height: 100%;
+    width: 100%;        
+}
+
 .showCorrectAnswersPush {
     animation:aShowCorrectAnswersPush 0.3 cubic-bezier(.4,.46,.3,1.31);
 }
@@ -903,8 +898,8 @@ ul {
 
     .gameOverFooter a {
         position: absolute;
-        right: 10%;
-        top: 22%;
+        right: 5%;
+        top: 28%;
         display: block;
         height: 50%;
         width: 20%;

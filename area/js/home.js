@@ -99,16 +99,23 @@ var game = {
 
             /*当前题目答题情况判断*/
             that.checkoutCurrentAnswer(qid, currentAnswer);
-           
+
             //that.fillInQuestionToDom();   //随机出题
         });
 
         /*分享和 再来一局*/
-        that.$gOverWrapper.on('click', '.oneMoreTime', function () {
+        that.$gOverWrapper.on('click', '.gameResultBtns>div', function () {
             var index = $(this).index();
             if (index == 1) {
                 that.restarGame();
+            } else {
+                that.$gOverWrapper.find('.shareToFriendsTips').show();
             }
+        });
+
+        /*隐藏分享按钮*/
+        that.$gOverWrapper.on('click', '.shareToFriendsTips', function () {
+            $(this).hide();
         });
 
         $('.btnsItem').on('touchstart', function () { });
@@ -163,7 +170,7 @@ var game = {
             $temp.addClass('btnsCorrect');
             window.setTimeout(function () {
                 $temp.removeClass('btnsCorrect');  //显示正确效果
-            }, 100);
+            }, 200);
             if (this.doubleHitNums > 1) {
                 $hitNums.text(this.doubleHitNums);
                 $p.addClass('doubleHitNumsShow');
@@ -332,6 +339,14 @@ var game = {
         }
         recordsArr.push(recorInfo);
         storage.myGameRecords = JSON.stringify(recordsArr);
+
+        //更新游戏记录面板
+        var str = '<tr><td>' + recorInfo.date + '</td>' +
+                        '<td>' + recorInfo.scores + '</td>' +
+                        '<td>' + recorInfo.name + '</td></tr>';
+        var $target = this.$cWrapper.find('.gameRecordsContent');
+        $target.find('.gameRecordsContent table').prepend(str);
+        $target.find('p').hide();
         /*上传服务器*/
     },
 
@@ -464,9 +479,16 @@ var game = {
             rh = $records.height(),
             $notice = this.$cWrapper.find('.gameNotice'),
             nw = $notice.width(),
-            nh = $notice.height();
-        $records.css({ 'top': (h - rh) / 2.6, 'left': (w - rw) / 2 });
-        $notice.css({ 'top': (h - nh) / 2.6, 'left': (w - nw) / 2 });
+            nh = $notice.height(),
+            top = (h - rh) / 2.6,
+            left = (w - rw) / 2;
+        $records.css({ 'top': top, 'left': left });
+        $notice.css({ 'top': top, 'left': left });
+
+        var $btns = this.$cWrapper.find('.btnsContents'),
+             top1 = (h - $btns.height()) / 2,
+             left1 = (w - $btns.width()) / 2;
+        this.$cWrapper.find('.btnsContents').css({ 'top': top1, 'left': left1 });
 
         /*人物位置*/
         var width = w * 0.49;
@@ -476,7 +498,7 @@ var game = {
         /*结束页下脚*/
         var fHeight = w * 102 / 750;
         this.$gOverWrapper.find('.gameOverFooter').css({ 'width': w, 'height': fHeight });
-        
+
     },
 
     OBJECT_NAME: 'game'
