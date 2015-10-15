@@ -889,10 +889,10 @@ ul {
     -o-transition: width 1s ease;
     transition: width 1s ease;
     background: url(../images/gameover/7.png) 0 0 no-repeat;
-    background-size: @backgroundimgS;
-    -webkit-background-size: @backgroundimgS;
-    -moz-background-size: @backgroundimgS;
-    -o-background-size: @backgroundimgS;
+    background-size: @backgroundimgWrapper;
+    -webkit-background-size: @backgroundimgWrapper;
+    -moz-background-size: @backgroundimgWrapper;
+    -o-background-size: @backgroundimgWrapper;
     z-index: 99;
 }
 
@@ -1050,7 +1050,7 @@ ul {
     }
     .questionNum {
         font-size: 13px;
-        margin-top: 0px;
+        margin-top: 3px;
     }
 
     .showCorrectAnswersPerson {
