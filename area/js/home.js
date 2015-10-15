@@ -11,7 +11,7 @@ $(function () {
 
 /*游戏对象*/
 var game = {
-    maxTimeStr: '00:01:00',
+    maxTimeStr: '00:15:00',
     //imgBaseUrl: 'area/',
     imgBaseUrl: 'area/',
     $cWrapper: null,

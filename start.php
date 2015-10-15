@@ -13,11 +13,7 @@ $signPackage = $jssdk->GetSignPackage();
 	<meta name="keywords" content="嘿设汇,反应力,ps快捷键" />
     <title>轰炸设计师</title>
 	<link href="area/css/home.css" rel="stylesheet/less" />
-    <script src="area/js/jquery-1.8.2.min.js"></script>
-    <script src="area/js/angular.min.js"></script>
-    <script src="area/js/less-1.3.3.min.js"></script>
-    <script src="area/js/prefixfree.min.js"></script>
-    <script src="area/js/home.js"></script>
+	<script src="area/js/less-1.3.3.min.js"></script>
 </head>
 <body>
   <img src="http://game.hisihi.com/solo/area/images/home/sharelogo1.png" id="noAttentionImg" height="0" width="0"/>
@@ -95,6 +91,10 @@ $signPackage = $jssdk->GetSignPackage();
         </div>
 
     </div>
+	<script src="area/js/jquery-1.8.2.min.js"></script>
+    <script src="area/js/angular.min.js"></script>
+    <script src="area/js/prefixfree.min.js"></script>
+    <script src="area/js/home.js"></script>
 </body>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script>
