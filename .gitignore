@@ -2,7 +2,7 @@
 /*.sh
 /.idea
 /.svn
-/.sln
-/.suo
+/*.sln
+/*.suo
 /Runtime
 /Uploads
