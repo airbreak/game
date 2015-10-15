@@ -11,7 +11,7 @@ $(function () {
 
 /*游戏对象*/
 var game = {
-    maxTimeStr: '00:15:00',
+    maxTimeStr: '00:01:00',
     //imgBaseUrl: 'area/',
     imgBaseUrl: 'area/',
     $cWrapper: null,
@@ -512,10 +512,6 @@ app.controller('gameRecordsController', function ($scope) {
         records = storage.getItem('myGameRecords'),
         data = JSON.parse(records),
         $p = $('.gameRecordsContent p');
-
-    //var data = [{ name: '神级设计尸', date: '2015.9.28', scores: '45665分' }, { name: '新东方厨师', date: '2015.9.28', scores: 42665 },
-    //    { name: '千年老尸', date: '2015.9.28', scores: 40665 }, { name: '苍老师', date: '2015.9.28', scores: 35665 },
-    //    { name: '撸大湿', date: '2015.9.28', scores: 25665 }, { name: '村口王师傅', date: '2015.9.28', scores: 15665 }];
     if (!data) {
         storage.setItem('myGameRecords', null);
         $p.show();

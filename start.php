@@ -1,6 +1,6 @@
 <?php
 require_once "jssdk.php";
-$jssdk = new JSSDK("wxe567cacaccd3a88f", "bc3b100bc72d6240fbda0b54856a8820");
+$jssdk = new JSSDK("wx2f3a32d7659540d0", "724b2c25abf17a825ecb870098a6194a");
 $signPackage = $jssdk->GetSignPackage();
 ?>
 <!DOCTYPE html>
@@ -8,7 +8,7 @@ $signPackage = $jssdk->GetSignPackage();
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width ,initial-scale=1.0,maximum-scale=1.0,user-scalable=0;" />
-	<meta name="sharecontent" data-msg-img="http://wechat.hisihi.com/game/area/images/home/sharelogo.png" data-msg-title="轰炸设计师" data-msg-content="轰炸设计师" data-msg-callBack="" data-line-img="http://wechat.hisihi.com/game/area/images/home/sharelogo.png" data-line-title="轰炸设计师" data-line-callBack=""/>
+	<meta name="sharecontent" data-msg-img="http://game.hisihi.com/solo/area/images/home/sharelogo.png" data-msg-title="轰炸设计师" data-msg-content="轰炸设计师" data-msg-callBack="" data-line-img="http://game.hisihi.com/solo/area/images/home/sharelogo.png" data-line-title="轰炸设计师" data-line-callBack=""/>
 	<meta name="description" content="在15秒之内，答对题目累计积分。连击翻倍，答对加分，答错不扣分题目无上限,比比你的反应力吧！" />
 	<meta name="keywords" content="嘿设汇,反应力,ps快捷键" />
     <title>轰炸设计师</title>
@@ -20,7 +20,7 @@ $signPackage = $jssdk->GetSignPackage();
     <script src="area/js/home.js"></script>
 </head>
 <body>
-  <img src="http://wechat.hisihi.com/game/area/images/home/sharelogo1.png" id="noAttentionImg" height="0" width="0"/>
+  <img src="http://game.hisihi.com/solo/area/images/home/sharelogo1.png" id="noAttentionImg" height="0" width="0"/>
   <div class="wrapper">
         <div class="contentWrapper wrapperItem">
              <div class="aboutGameNotice btnsItem"></div>
@@ -88,8 +88,8 @@ $signPackage = $jssdk->GetSignPackage();
             </div>
 			<div class="shareToFriendsTips"></div>
             <div class="gameOverAndTips gameOverAndTipsHide">
+               <div class="showCorrectAnswers"><a href="http://www.hisihi.com/download.php" target="_blank"></a></div>
                 <div class="showCorrectAnswersPerson"></div>
-                <div class="showCorrectAnswers"><a href="http://hisihi.com" target="_blank"></a></div>
             </div>
             <div class="gameOverFooter"><a href="http://hisihi.com" target="_blank"></a></div>
         </div>
@@ -125,8 +125,8 @@ $signPackage = $jssdk->GetSignPackage();
     wx.onMenuShareAppMessage({
       title: '轰炸设计师', // 分享标题
       desc: '不服来solo！！！', // 分享描述
-      link: 'http://wechat.hisihi.com/game/start.php', // 分享链接
-      imgUrl: 'http://wechat.hisihi.com/game/area/images/home/sharelogo.png', // 分享图标
+      link: 'http://game.hisihi.com/solo/start.php', // 分享链接
+      imgUrl: 'http://game.hisihi.com/solo/area/images/home/sharelogo.png', // 分享图标
       type: 'link', // 分享类型,music、video或link，不填默认为link
       dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
 	  trigger:function(){
@@ -143,8 +143,8 @@ $signPackage = $jssdk->GetSignPackage();
 	wx.onMenuShareQQ({
       title: '轰炸设计师', // 分享标题
       desc: '不服来solo！！！', // 分享描述
-      link: 'http://wechat.hisihi.com/game/start.php', // 分享链接
-      imgUrl: 'http://wechat.hisihi.com/game/area/images/home/sharelogo.png', // 分享图标
+      link: 'http://game.hisihi.com/solo/start.php', // 分享链接
+      imgUrl: 'http://game.hisihi.com/solo/area/images/home/sharelogo.png', // 分享图标
 	  type: 'link', // 分享类型,music、video或link，不填默认为link
       dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
 	  trigger:function(){
@@ -161,8 +161,8 @@ $signPackage = $jssdk->GetSignPackage();
 	wx.onMenuShareWeibo({
       title: '轰炸设计师', // 分享标题
       desc: '不服来solo！！！', // 分享描述
-      link: 'http://wechat.hisihi.com/game/start.php', // 分享链接
-      imgUrl: 'http://wechat.hisihi.com/game/area/images/home/sharelogo.png', // 分享图标
+      link: 'http://game.hisihi.com/solo/start.php', // 分享链接
+      imgUrl: 'http://game.hisihi.com/solo/area/images/home/sharelogo.png', // 分享图标
 	  type: 'link', // 分享类型,music、video或link，不填默认为link
       dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
 	  trigger:function(){
@@ -179,8 +179,8 @@ $signPackage = $jssdk->GetSignPackage();
     wx.onMenuShareQZone({
       title: '轰炸设计师', // 分享标题
       desc: '不服来solo！！！', // 分享描述
-      link: 'http://wechat.hisihi.com/game/start.php', // 分享链接
-      imgUrl: 'http://wechat.hisihi.com/game/area/images/home/sharelogo.png', // 分享图标
+      link: 'http://game.hisihi.com/solo/start.php', // 分享链接
+      imgUrl: 'http://game.hisihi.com/solo/area/images/home/sharelogo.png', // 分享图标
 	  type: 'link', // 分享类型,music、video或link，不填默认为link
       dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
 	  trigger:function(){
@@ -196,8 +196,8 @@ $signPackage = $jssdk->GetSignPackage();
 	
 	wx.onMenuShareTimeline({
       title: '轰炸设计师', // 分享标题
-      link: 'http://wechat.hisihi.com/game/start.php', // 分享链接
-      imgUrl: 'http://wechat.hisihi.com/game/area/images/home/sharelogo.png', // 分享图标	 
+      link: 'http://game.hisihi.com/solo/start.php', // 分享链接
+      imgUrl: 'http://game.hisihi.com/solo/area/images/home/sharelogo.png', // 分享图标	 
 	  trigger:function(){
 		this.title= '轰炸设计师 ——— 噢耶！我得到了 '+ window.shareGameResults.levelName + ' 等级，获得了" ' + window.shareGameResults.scorcesName + '" 的称号，不服来solo！！！';
 	  },
