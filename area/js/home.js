@@ -11,13 +11,15 @@ $(function () {
 
 /*游戏对象*/
 var game = {
-    maxTimeStr: '00:15:00',
+    maxTimeStr: '00:10:00',
+    //imgBaseUrl: 'area/',
     imgBaseUrl: 'area/',
     $cWrapper: null,
     $gWrapper: null,
     $gOverWrapper: null,
     timeInterval: null,
     questionsArr: [],
+    doneQuestionArr: [],  //已经做过的题目
     answersArr: [],  //答题情况  预留的
 
     totalScores: 5,  //总分
@@ -97,8 +99,8 @@ var game = {
 
             /*当前题目答题情况判断*/
             that.checkoutCurrentAnswer(qid, currentAnswer);
-
-            that.fillInQuestionToDom();   //随机出题
+           
+            //that.fillInQuestionToDom();   //随机出题
         });
 
         /*分享和 再来一局*/
@@ -184,6 +186,7 @@ var game = {
             $('.wrongAnsweInfo').removeClass('wrongAnsweInfoShow');
             $p.removeClass('doubleHitNumsShow');
             that.setTimeOutInfo(0);
+            that.fillInQuestionToDom();
         }, 500);
     },
 
@@ -192,19 +195,31 @@ var game = {
         var $q = this.$gWrapper.find('.gameContentQuestion'),
               oQId = $q.attr('data-qid'),
              qInfo = this.showQuestionByRandom(oQId);
+        if (!qInfo) {
+            qInfo = this.showQuestionByRandom();
+        }
         $q.attr('data-qid', qInfo.qId);
         $q.find('p').text(qInfo.qDescription);
         this.changeQuestionTileAndBg();
     },
 
     /*随机出题*/
-    showQuestionByRandom: function (oQId) {
-        var index = this.getRandomNum(this.questionsArr.length);
-        var qIf = this.questionsArr[index];
-        if (qIf && oQId != qIf.qId) {
-            return qIf;
+    showQuestionByRandom: function () {
+        var len = this.questionsArr.length,
+            index = this.getRandomNum(len),
+            qIf = null;
+        //如果该题已经做过，则重新取
+        if (this.doneQuestionArr.length == len - 15) {
+            this.doneQuestionArr = [];
+            return this.showQuestionByRandom();
         } else {
-            return this.showQuestionByRandom(oQId);
+            if ($.inArray(index, this.doneQuestionArr) < 0) {
+                this.doneQuestionArr.push(index);
+                qIf = this.questionsArr[index];
+                return qIf;
+            } else {
+                return this.showQuestionByRandom();
+            }
         }
     },
 
@@ -326,7 +341,7 @@ var game = {
         this.$gWrapper.find('.gameContentBtns>div').removeClass('btnsCorrect');
         this.swapClass(this.$gWrapper, 'gameContentWrapperShow', 'gameContentWrapperHide');
         this.swapClass(this.$gOverWrapper.find('.gameResultPanel'), 'gameResultPanelHide', 'gameResultPanelShow');
-        this.swapClass(this.$gOverWrapper.find('.gameRankingListPanel'), 'gameRankingListPanelHide', 'gameRankingListPanelShow');
+        this.swapClass(this.$gOverWrapper.find('.gameOverAndTips'), 'gameOverAndTipsHide', 'gameOverAndTipsShow');
     },
 
     /*
@@ -368,7 +383,7 @@ var game = {
             $scores.text(totalScores);
             that.setNameAndLevelInfo(levelsItem);   //设置等级和名称
         }
-        var record = { name: levelsItem.name, level: levelsItem.level, date: new Date().format('yyyy-MM-dd'), scores: this.totalScores + '分' };
+        var record = { name: levelsItem.name, level: levelsItem.level, date: new Date().format('MM.dd hh:mm'), scores: this.totalScores + '分' };
         this.commitResultToService(record);    /*将游戏结果传到服务器*/
     },
 
@@ -398,7 +413,7 @@ var game = {
         this.swapClass(this.$gWrapper, 'gameContentWrapperShow', 'gameContentWrapperHide');
         this.swapClass(this.$gOverWrapper.find('.gameResultPanel'), 'gameResultPanelShow', 'gameResultPanelHide');
         this.swapClass(this.$gOverWrapper.find('.scoresLevel'), 'scoreLevelShow', 'scoreLevelHide');
-        this.swapClass(this.$gOverWrapper.find('.gameRankingListPanel'), 'gameRankingListPanelShow', 'gameRankingListPanelHide');
+        this.swapClass(this.$gOverWrapper.find('.gameOverAndTips'), 'gameOverAndTipsShow', 'gameOverAndTipsHide');
     },
 
     /*清除上次游戏信息*/
@@ -408,6 +423,7 @@ var game = {
         this.answersArr = [];
         this.doubleHitNums = 0;
         this.doubleHitNumsArr = [];
+        this.doneQuestionArr = [];
         this.totalDoneQuestionsNum = 0;
     },
 
@@ -451,6 +467,16 @@ var game = {
             nh = $notice.height();
         $records.css({ 'top': (h - rh) / 2.6, 'left': (w - rw) / 2 });
         $notice.css({ 'top': (h - nh) / 2.6, 'left': (w - nw) / 2 });
+
+        /*人物位置*/
+        var width = w * 0.49;
+        this.$gWrapper.find('.gameContentPeople').css({ 'width': width, 'height': width });
+        this.$gWrapper.find('.moreInfoSeeHisihi').css({ 'width': w, 'height': w * 56 / 750 });
+
+        /*结束页下脚*/
+        var fHeight = w * 102 / 750;
+        this.$gOverWrapper.find('.gameOverFooter').css({ 'width': w, 'height': fHeight });
+        
     },
 
     OBJECT_NAME: 'game'
@@ -458,7 +484,7 @@ var game = {
 
 /*angularjs 数据绑定*/
 var app = angular.module('myApp', []);
-app.controller('gameRecordsController', function ($scope, $http) {
+app.controller('gameRecordsController', function ($scope) {
 
     var storage = window.localStorage,
         records = storage.getItem('myGameRecords'),
@@ -479,9 +505,9 @@ app.controller('gameRecordsController', function ($scope, $http) {
     }
     $scope.items = data;
 
-    $scope.$watch('name', function (newValue, oldValue, scope) {
+    //$scope.$watch('name', function (newValue, oldValue, scope) {
 
-    });
+    //});
 
 });
 

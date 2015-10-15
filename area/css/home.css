@@ -12,21 +12,18 @@ body {
     overflow: hidden;
 }
 
-body * {
-    font-family: 'Microsoft YaHei';
-}
-
+    body * {
+        font-family: 'Microsoft YaHei';
+    }
 #noAttentionImg {
-    margin:0;
-    padding:0;
-    width:0px; 
-    height:0px; 
-    overflow:hidden;
-    position:absolute;
-    top:-350px;
-    z-index:-1;
+    margin: 0;
+    padding: 0;
+    width: 0px;
+    height: 0px;
+    overflow: hidden;
+    position: absolute;
+    top: -350px;
 }
-
 ul {
     margin: auto;
 }
@@ -259,13 +256,13 @@ ul {
 }
 
 .gameRecordsContent {
-    overflow:auto;
-    height:85%;
+    overflow: auto;
+    height: 85%;
 }
 
 .gameRecords table {
     width: 91%;
-    margin: 6% auto;
+    margin: 0% auto;
     border-collapse: collapse;
 }
 
@@ -744,16 +741,19 @@ ul {
     color: #FFF402;
     font-weight: bold;
     font-size: 150%;
-    opacity:0;
+    opacity: 0;
 }
+
 .yourHonorHide {
-    opacity:0;
+    opacity: 0;
 }
+
 .yourHonorShow {
-    animation:aYourHonorShow 0.4s;
-    animation-delay:1.5s;
-    animation-fill-mode:forwards;
+    animation: aYourHonorShow 0.4s;
+    animation-delay: 1.5s;
+    animation-fill-mode: forwards;
 }
+
 @keyframes aYourHonorShow {
     0% {
         transform: scale(6);
@@ -806,109 +806,86 @@ ul {
     -o-background-size: @backgroundimgS;
 }
 
-/**排行面板**/
-.gameRankingListPanel {
-    position: relative;
-    /*height:50%;
-    width:85%;*/
-    top: -9.5%;
-    height: 38%;
-    width: 85%;
-    margin: 0 auto;
-    -webkit-transition: width 1s ease;
-    -moz-transition: width 1s ease;
-    -o-transition: width 1s ease;
+/**正确答案提示**/
+.gameOverAndTips {
+    position: absolute;
+    bottom: 7%;
+    height: 35%;
+    width: 100%;
+    /*margin: 0 auto;*/
     transition: width 1s ease;
-    background: url(../images/gameover/8.png) 0 0 no-repeat;
-    background-size: @backgroundimgS;
-    -webkit-background-size: @backgroundimgS;
-    -moz-background-size: @backgroundimgS;
-    -o-background-size: @backgroundimgS;
     opacity: 0;
 }
 
-.gameRankingListPanelShow {
-    animation: aGameRankingListPanelShow .7s;
-    -webkit-animation: aGameRankingListPanelShow .7s;
-    -moz-animation: aGameRankingListPanelShow .7s;
-    -o-animation: aGameRankingListPanelShow .7s;
-    -webkit-animation-fill-mode: forwards;
-    -moz-animation-fill-mode: forwards;
-    -o-animation-fill-mode: forwards;
+.gameOverAndTipsShow {
     animation-fill-mode: forwards;
-    -webkit-animation-delay: 1s;
-    -moz-animation-delay: 1s;
-    -o-animation-delay: 1s;
+    animation: aGameOverAndTipsShow 1.3s cubic-bezier(.4,.46,.3,1.31);
+    animation-fill-mode: forwards;
     animation-delay: 1s;
 }
 
-@keyframes aGameRankingListPanelShow {
+@keyframes aGameOverAndTipsShow {
     0% {
-        -webkit-transform: translateY(-30vh) scaleY(.98);
-        -moz-transform: translateY(-30vh) scaleY(.98);
-        -o-transform: translateY(-30vh) scaleY(.98);
-        transform: translateY(-30vh) scaleY(.98);
+        transform: translateY(30vh) scaleY(.98);
     }
 
     80% {
-        -webkit-transform: translateY(4vh) scaleY(1.02);
-        -moz-transform: translateY(4vh) scaleY(1.02);
-        -o-transform: translateY(4vh) scaleY(1.02);
-        transform: translateY(4vh) scaleY(1.02);
+        transform: translateY(-4vh) scaleY(1.02);
     }
 
     100% {
-        -webkit-transform: translateY(0vh) scaleY(.98);
-        -moz-transform: translateY(0vh) scaleY(.98);
-        -o-transform: translateY(0vh) scaleY(.98);
         transform: translateY(0vh) scaleY(.98);
         opacity: 1;
     }
 }
 
-.gameRankingListPanelHide {
-    -webkit-animation: aGameRankingListPanelHide .7s;
-    -moz-animation: aGameRankingListPanelHide .7s;
-    -o-animation: aGameRankingListPanelHide .7s;
-    animation: aGameRankingListPanelHide .7s;
-    -webkit-animation-fill-mode: forwards;
-    -moz-animation-fill-mode: forwards;
-    -o-animation-fill-mode: forwards;
-    animation-fill-mode: forwards;
-    -webkit-animation-delay: 1s;
-    -moz-animation-delay: 1s;
-    -o-animation-delay: 1s;
-    animation-delay: 1s;
+.gameOverAndTipsHide {
+    opacity: 0;
+    z-index:-1;
 }
 
-@keyframes aGameRankingListPanelHide {
-    0% {
-        -webkit-transform: translateY(0vh) scaleY(.98);
-        -moz-transform: translateY(0vh) scaleY(.98);
-        -o-transform: translateY(0vh) scaleY(.98);
-        transform: translateY(0vh) scaleY(.98);
+.showCorrectAnswers {
+    background: url(../images/gameover/6.png) 0 0 no-repeat;
+    background-size: @backgroundimgS;
+    width: 46%;
+    height: 30%;
+    margin: 0 auto;
+    top:-14%;
+    position:relative;
+    z-index:2;
+}
+
+.showCorrectAnswersPush {
+    animation:aShowCorrectAnswersPush 0.3 cubic-bezier(.4,.46,.3,1.31);
+}
+
+@keyframes aShowCorrectAnswersPush {
+     0% {
+        transform: scaleX(1.58);
     }
 
     80% {
-        -webkit-transform: translateY(4vh) scaleY(1.02);
-        -moz-transform: translateY(4vh) scaleY(1.02);
-        -o-transform: translateY(4vh) scaleY(1.02);
-        transform: translateY(4vh) scaleY(1.02);
+        transform:scaleY(0.02);
     }
 
     100% {
-        -webkit-transform: translateY(-30vh) scaleY(.98);
-        -moz-transform: translateY(-30vh) scaleY(.98);
-        -o-transform: translateY(-30vh) scaleY(.98);
-        transform: translateY(-30vh) scaleY(.98);
-        opacity: 0;
+        transform:  scaleY(1);
     }
+}
+
+.showCorrectAnswersPerson {
+    width: 21%;
+    height: 60%;
+   
+    margin: 0 auto;
+    background: url(../images/gameover/5.png) 0 0 no-repeat;
+    background-size: @backgroundimgS;
 }
 
 
 .gameOverFooter {
     position: absolute;
-    bottom: -6px;
+    bottom: 0px;
     height: 9.2%;
     width: 100%;
     margin: 0 auto;
@@ -990,14 +967,12 @@ ul {
         height: 72px;
     }
 
-    .gameRankingListPanel {
-        height: 42.6%;
-        width: 75.4%;
-        top: -4.5%;
-    }
-
     .moreInfoSeeHisihi {
         height: 5.8%;
+    }
+    .showCorrectAnswersPerson {
+         width: 18%;
+        height: 70%;
     }
 }
 
@@ -1027,7 +1002,14 @@ ul {
     .gameRecords, .gameNotice {
         height: 220px;
         width: 320px;
-        padding-top: 17%;
+        padding-top: 21.6%;
+    }
+
+    .gameNotice {
+        padding-top: 12.6%;
+    }
+    .closeGameNotice {
+        right:10px;   
     }
 
         .gameRecords table {
@@ -1039,10 +1021,7 @@ ul {
         height: 30px;
     }
 
-    .gameContentPeople {
-        height: 37%;
-        width: 62%;
-    }
+
 }
 
 @media screen and (max-width:320px) {
@@ -1051,11 +1030,18 @@ ul {
         height: 96px;
     }
 
-    .gameRecords {
-        height: 220px;
-        width: 308px;
-        padding-top: 19%;
+    .gameRecords, .gameNotice {
+        height: 194px;
+        width: 279px;
+        padding-top: 22%;
     }
+    .gameNotice {
+        padding-top: 14%;
+    }
+    .gameRecords td {
+        font-size:11px;    
+    }
+
 
     .gameContentTime label {
         font-size: 25px;
@@ -1065,6 +1051,12 @@ ul {
     .gameContentQuestion p {
         font-size: 19px;
         line-height: 30px;
+    }
+
+
+    .showCorrectAnswersPerson {
+        width: 21%;
+        height: 60%;
     }
 }
 
