@@ -86,9 +86,10 @@ $signPackage = $jssdk->GetSignPackage();
                     </div>
                 </div>
             </div>
+			<div class="shareToFriendsTips"></div>
             <div class="gameOverAndTips gameOverAndTipsHide">
                 <div class="showCorrectAnswersPerson"></div>
-                <div class="showCorrectAnswers"></div>
+                <div class="showCorrectAnswers"><a href="http://hisihi.com" target="_blank"></a></div>
             </div>
             <div class="gameOverFooter"><a href="http://hisihi.com" target="_blank"></a></div>
         </div>

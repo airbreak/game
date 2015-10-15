@@ -345,7 +345,7 @@ var game = {
                         '<td>' + recorInfo.scores + '</td>' +
                         '<td>' + recorInfo.name + '</td></tr>';
         var $target = this.$cWrapper.find('.gameRecordsContent');
-        $target.find('.gameRecordsContent table').prepend(str);
+        $target.find('tbody').prepend(str);
         $target.find('p').hide();
         /*上传服务器*/
     },

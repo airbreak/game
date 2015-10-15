@@ -363,7 +363,7 @@ ul {
 
 .moreInfoSeeHisihi {
     background: url(../images/gamecontent/9.png) 0 0 no-repeat;
-    background-size: @backgroundimgS;
+    background-size: @backgroundimgWrapper;
     transition: width 1s ease;
     height: 4.8%;
     width: 100%;
@@ -1020,6 +1020,7 @@ ul {
 }
 
 @media screen and (max-width:320px) {
+
     .gameTitle {
         width: 250px;
         height: 96px;
@@ -1047,7 +1048,10 @@ ul {
         font-size: 19px;
         line-height: 30px;
     }
-
+    .questionNum {
+        font-size: 13px;
+        margin-top: 0px;
+    }
 
     .showCorrectAnswersPerson {
         width: 21%;
