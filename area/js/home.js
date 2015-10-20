@@ -6,12 +6,13 @@ $(function () {
         totalScores: 0,     //总分
         scorcesName: '苍老湿',//称号
         levelName: 'D',  //等级名称
+        defeatNum: 0
     };
 });
 
 /*游戏对象*/
 var game = {
-    maxTimeStr: '00:15:00',
+    maxTimeStr: '00:30:00',
     //imgBaseUrl: 'area/',
     imgBaseUrl: 'area/',
     $cWrapper: null,
@@ -34,12 +35,12 @@ var game = {
     /*最后一题的答题情况*/
     lastOneAnswerFlag: false,
 
-    namsAndLevelsArr: [{ level: 'SSS', levelImg: 'images/gameover/sss.png', name: '神级设计师', max: 300000000000, min: 25000 },
-        { level: 'S', levelImg: 'images/gameover/s.png', name: '千年古尸', max: 24900, min: 20000 },
-        { level: 'A', levelImg: 'images/gameover/a.png', name: '松狮', max: 19900, min: 15000 },
-        { level: 'B', levelImg: 'images/gameover/b.png', name: '山村老尸', max: 14900, min: 10000 },
-        { level: 'C', levelImg: 'images/gameover/c.png', name: '村口王师傅', max: 9900, min: 5000 },
-        { level: 'D', levelImg: 'images/gameover/d.png', name: '苍老湿', max: 4900, min: 0 }],
+    namsAndLevelsArr: [{ level: 'SSS', levelImg: 'images/gameover/sss.png', name: '神级设计师', max: 300000000000, min: 25000, defeatArr: [30001, 35000] },
+        { level: 'S', levelImg: 'images/gameover/s.png', name: '千年古尸', max: 24900, min: 20000, defeatArr: [25001, 30000] },
+        { level: 'A', levelImg: 'images/gameover/a.png', name: '松狮', max: 19900, min: 15000, defeatArr: [20001, 25000] },
+        { level: 'B', levelImg: 'images/gameover/b.png', name: '山村老尸', max: 14900, min: 10000, defeatArr: [15001, 20000] },
+        { level: 'C', levelImg: 'images/gameover/c.png', name: '村口王师傅', max: 9900, min: 5000, defeatArr: [10001, 15000] },
+        { level: 'D', levelImg: 'images/gameover/d.png', name: '苍老湿', max: 4900, min: 0, defeatArr: [5000, 10000] }],
 
     /**初始化游戏**/
     initialize: function (qArr) {
@@ -47,6 +48,7 @@ var game = {
         this.$cWrapper = $('.contentWrapper');
         this.$gWrapper = $('.gameContentWrapper');
         this.$gOverWrapper = $('.gameOverWrapper');
+        this.updateRecordsInfo(this.loadRecordsData());
         this.eventsInit();
         this.setRecordsAndNoticeStyle();
     },
@@ -158,7 +160,8 @@ var game = {
         var that = this,
             $p = this.$gWrapper.find('.doubleHitInfo > p'),
             $hitNums = $p.find('.doubleHitNums'),
-            $btns = this.$gWrapper.find('.gameContentBtns>div');
+            $btns = this.$gWrapper.find('.gameContentBtns>div'),
+            diffNum = 0;
         var temp = $.grep(that.questionsArr, function (item, key) {
             return item.qId == qid;
         })[0];
@@ -176,6 +179,7 @@ var game = {
                 $p.addClass('doubleHitNumsShow');
             }
             that.lastOneAnswerFlag = true;
+            diffNum = 1;
         }
 
             //答题错误
@@ -185,7 +189,13 @@ var game = {
             this.doubleHitNums = 0;
             that.lastOneAnswerFlag = false;
             $('.wrongAnsweInfo').addClass('wrongAnsweInfoShow');
+            diffNum = -3;
         }
+        var $timeLabel = this.$gWrapper.find('.timeDetailInfo'),
+              tempArr = $timeLabel.text().split(':'),
+              newTime = parseInt(tempArr[1]) + diffNum;
+        that.updateTimeShowInfo($timeLabel, [tempArr[0], newTime, tempArr[2]], diffNum >= 0);
+
         $('.rightAnsweInfo').show().delay(500).hide(0);
         /*重启计时器*/
         window.setTimeout(function () {
@@ -256,12 +266,24 @@ var game = {
         this.$gWrapper.find('.timeDetailInfo').text(this.maxTimeStr);
     },
 
-    /*更新显示出来的时间*/
-    updateTimeShowInfo: function ($label) {
-        var numArr = $label.text().split(':'),
-            numS = numArr[1] | 0,
-            numMs = numArr[2] | 0;
-        if (numS == 0 & numMs == 0) {
+    /*
+    *更新显示出来的时间
+    *
+    */
+    updateTimeShowInfo: function ($label, numArr, flag) {
+        if (!numArr) {
+            numArr = $label.text().split(':');
+        }
+        if (flag == undefined) {
+            flag = true;
+        }
+        var numS = numArr[1] | 0,
+             numMs = numArr[2] | 0;
+        if (numS < 3 && !flag) {
+            num = ('00:00:00');
+            this.gameOver();
+        }
+        if (numS <= 0 & numMs <= 0) {
             num = ('00:00:00');
             this.gameOver();
         } else {
@@ -321,13 +343,6 @@ var game = {
         return scores;
     },
 
-    /*
-    *根据游戏得分计算称号
-    */
-    calculateName: function () {
-
-    },
-
     /*将游戏结果传到服务器*/
     commitResultToService: function (recorInfo) {
         /*本地存储*/
@@ -340,14 +355,8 @@ var game = {
         recordsArr.push(recorInfo);
         storage.myGameRecords = JSON.stringify(recordsArr);
 
-        //更新游戏记录面板
-        var str = '<tr><td>' + recorInfo.date + '</td>' +
-                        '<td>' + recorInfo.scores + '</td>' +
-                        '<td>' + recorInfo.name + '</td></tr>';
-        var $target = this.$cWrapper.find('.gameRecordsContent');
-        $target.find('tbody').prepend(str);
-        $target.find('p').hide();
-        /*上传服务器*/
+        ////更新游戏记录面板
+        this.updateRecordsInfo([recorInfo]);
     },
 
     /*显示本次游戏 界面效果*/
@@ -368,6 +377,7 @@ var game = {
             $scores = $('#totalScores'),
             totalScores = this.calculateScroes(),
             interval = 10,
+            defeatNum = 0,
             baseScore = 0;
         this.totalScores = totalScores;
 
@@ -376,10 +386,13 @@ var game = {
             return item.max >= totalScores && item.min <= totalScores;
         })[0];
         baseScore = levelsItem.min;  //设计滚动时的最小数
-
+        if (totalScores != 0) {
+            defeatNum = this.getRandomNum(levelsItem.defeatArr[1], levelsItem.defeatArr[0]);
+        }
         window.shareGameResults.scorcesName = levelsItem.name;
         window.shareGameResults.levelName = levelsItem.level;
         window.shareGameResults.totalScores = totalScores;
+        window.shareGameResults.defeatNum = defeatNum;
 
         if (totalScores > 1000 && totalScores - baseScore <= 250) {
             baseScore = totalScores - 250;
@@ -391,24 +404,25 @@ var game = {
                 $scores.text(baseScore);
                 if (baseScore == totalScores) {
                     window.clearInterval(tempInterval);
-                    that.setNameAndLevelInfo(levelsItem);   //设置等级和名称
+                    that.setNameAndLevelInfo(levelsItem, defeatNum);   //设置等级和名称
                 }
             }, interval);
         } else {
             $scores.text(totalScores);
-            that.setNameAndLevelInfo(levelsItem);   //设置等级和名称
+            that.setNameAndLevelInfo(levelsItem, defeatNum);   //设置等级和名称
         }
         var record = { name: levelsItem.name, level: levelsItem.level, date: new Date().format('MM.dd hh:mm'), scores: this.totalScores + '分' };
         this.commitResultToService(record);    /*将游戏结果传到服务器*/
     },
 
     /*设置等级和名称*/
-    setNameAndLevelInfo: function (levelsItem) {
+    setNameAndLevelInfo: function (levelsItem, defeatNum) {
         var $level = this.$gOverWrapper.find('.scoresLevel'),
              $honor = this.$gOverWrapper.find('#yourHonor');
         $level.css('background-image', 'url(' + this.imgBaseUrl + levelsItem.levelImg + ')');  //设置等级图片  
         this.swapClass($level, 'scoreLevelHide', 'scoreLevelShow');
         this.$gOverWrapper.find('#yourHonor').text(levelsItem.name);//设置等级名称
+        this.$gOverWrapper.find('#defeatPeopleCounts').text(defeatNum);
         this.swapClass($honor, 'yourHonorHide', 'yourHonorShow');
     },
 
@@ -460,6 +474,47 @@ var game = {
     },
 
     /*
+    *得到游戏记录hmtl 字符串
+    *Paramters:
+    *recorInfoArr - {array} 游戏记录数组
+    */
+    updateRecordsInfo: function (recorInfoArr) {
+        var $target = this.$cWrapper.find('.gameRecordsContent');
+        if (!recorInfoArr) {
+            recorInfoArr = [];
+            $target.find('p').show();
+        } else {
+            $target.find('p').hide();
+        }
+        var len = recorInfoArr.length,
+        item = null,
+        str = '';
+        for (var i = 0; i < len; i++) {
+            item = recorInfoArr[i];
+            str += '<tr><td>' + item.date + '</td>' +
+                           '<td>' + item.scores + '</td>' +
+                           '<td>' + item.name + '</td></tr>';
+        }
+        $target.find('tbody').prepend(str);
+    },
+
+    /*加载显示游戏记录*/
+    loadRecordsData: function () {
+        var storage = window.localStorage,
+        records = storage.getItem('myGameRecords'),
+        data = JSON.parse(records),
+        $p = $('.gameRecordsContent p');
+        if (!data) {
+            storage.setItem('myGameRecords', null);
+        } else {
+            data = data.reverse(function (val1, val2) {
+                return val1 - val2;
+            });
+        }
+        return data;
+    },
+
+    /*
     *样式转换
     *Parameters:
     *$target - {jquery object} jquery对象
@@ -503,31 +558,6 @@ var game = {
 
     OBJECT_NAME: 'game'
 };
-
-/*angularjs 数据绑定*/
-var app = angular.module('myApp', []);
-app.controller('gameRecordsController', function ($scope) {
-
-    var storage = window.localStorage,
-        records = storage.getItem('myGameRecords'),
-        data = JSON.parse(records),
-        $p = $('.gameRecordsContent p');
-    if (!data) {
-        storage.setItem('myGameRecords', null);
-        $p.show();
-    } else {
-        data = data.reverse(function (val1, val2) {
-            return val1 - val2;
-        });
-        $p.hide();
-    }
-    $scope.items = data;
-
-    //$scope.$watch('name', function (newValue, oldValue, scope) {
-
-    //});
-
-});
 
 function compare(val1, val2) {
     return val1 - val2;

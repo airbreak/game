@@ -2,6 +2,15 @@
 require_once "jssdk.php";
 $jssdk = new JSSDK("wx2f3a32d7659540d0", "724b2c25abf17a825ecb870098a6194a");
 $signPackage = $jssdk->GetSignPackage();
+
+$counterFile = "counter.txt";
+if (!file_exists($counterFile))
+{
+    file_put_contents($counterFile, 0);
+}
+$num = intval(file_get_contents($counterFile));
+$num ++;
+file_put_contents($counterFile, $num);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,22 +41,15 @@ $signPackage = $jssdk->GetSignPackage();
             <div class="footer"></div>
             <div class="gameNotice">
                 <div class="closeGameNotice btnsItem"></div>
-                <p>在15秒之内，</p>
-                <p>答对题目累计积分。</p>
-                <p>连击翻倍，答对加分，答错不扣分</p>
-                <p>题目无上限,</p>
-                <p>比比你的反应力吧！</p>
+                <p>在30秒之内，</p>
+                <p>答对题目累计积分，</p>
+                <p>连击翻倍，答对加时1s，答错扣时3s。</p>
+                <p>题目无上限，比比你的反应力吧！</p>
             </div>
-            <div class="gameRecords" ng-app="myApp">
+            <div class="gameRecords">
                 <div class="closeGameRecords btnsItem"></div>
                 <div class="gameRecordsContent">
-                    <table ng-controller="gameRecordsController">
-                        <tr ng-repeat="item in items">
-                            <td>{{item.date}}</td>
-                            <td>{{item.scores}}</td>
-                            <td>{{item.name}}</td>
-                        </tr>
-                    </table>
+                    <table><tbody></tbody></table>
                     <p>第一次玩吧，一边自个儿玩去！</p>
                 </div>
             </div>
@@ -56,7 +58,7 @@ $signPackage = $jssdk->GetSignPackage();
             <div class="gameContentHeader"><div class="questionNum">第&nbsp;<span id="totalDoneQuestionsNum">1</span>&nbsp;题</div></div>
             <div class="gameContentPeople"></div>
             <div class="gameContentTime"><span></span><label class="timeDetailInfo"></label></div>
-            <div class="moreInfoSeeHisihi"><a href="http://hisihi.com" target="_blank"></a></div>
+            <div class="moreInfoSeeHisihi"><a href="http://www.hisihi.com/download.php" target="_blank"></a></div>
             <div class="gameContentQuestion"><p>在ps中，ctrl+v是复制的快捷键么</p></div>
             <div class="doubleHitInfo"><p>&nbsp;×<span class="doubleHitNums"></span>&nbsp;</p></div>
             <div class="wrongAnsweInfo"></div>
@@ -73,7 +75,7 @@ $signPackage = $jssdk->GetSignPackage();
                     <div class="scoresLevel scoreLevelHide"></div>
                     <div class="scroresBg"><p>本局累计积分</p><p><span id="totalScores"">0</span>分</p></div>
                     <div class="scroresDescription">
-                        <!--<p>你已超过<span id="defeatPeopleCounts">12313432</span>名设计师</p>-->
+                        <p>你已超过 &nbsp;&nbsp;<span id="defeatPeopleCounts"></span>&nbsp;&nbsp;名设计师</p>
                         <p>获得&nbsp;&nbsp;<span id="yourHonor"></span>&nbsp;&nbsp;称号！！</p>
                     </div>
                     <div class="gameResultBtns">
@@ -92,7 +94,6 @@ $signPackage = $jssdk->GetSignPackage();
 
     </div>
 	<script src="area/js/jquery-1.8.2.min.js"></script>
-    <script src="area/js/angular.min.js"></script>
     <script src="area/js/prefixfree.min.js"></script>
     <script src="area/js/home.js"></script>
 </body>
@@ -130,7 +131,7 @@ $signPackage = $jssdk->GetSignPackage();
       type: 'link', // 分享类型,music、video或link，不填默认为link
       dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
 	  trigger:function(){
-		this.desc= '噢耶！我得到了 '+ window.shareGameResults.levelName + ' 等级，获得了" ' + window.shareGameResults.scorcesName + '" 的称号，不服来solo！！！';
+		this.desc= '噢耶！我得到了 '+ window.shareGameResults.levelName + ' 等级，获得了" ' + window.shareGameResults.scorcesName + '" 的称号，已超过 ' + window.shareGameResults.defeatNum + ' 名设计师，不服来solo！！！';
 	  },
       success: function () {
         // 用户确认分享后执行的回调函数
@@ -148,7 +149,7 @@ $signPackage = $jssdk->GetSignPackage();
 	  type: 'link', // 分享类型,music、video或link，不填默认为link
       dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
 	  trigger:function(){
-		this.desc= '噢耶！我得到了 '+ window.shareGameResults.levelName + ' 等级，获得了" ' + window.shareGameResults.scorcesName + '" 的称号，不服来solo！！！';
+		this.desc= '噢耶！我得到了 '+ window.shareGameResults.levelName + ' 等级，获得了" ' + window.shareGameResults.scorcesName + '" 的称号，已超过 ' + window.shareGameResults.defeatNum + ' 名设计师，不服来solo！！！';
 	  },
       success: function () {
         // 用户确认分享后执行的回调函数
@@ -166,7 +167,7 @@ $signPackage = $jssdk->GetSignPackage();
 	  type: 'link', // 分享类型,music、video或link，不填默认为link
       dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
 	  trigger:function(){
-		this.desc= '噢耶！我得到了 '+ window.shareGameResults.levelName + ' 等级，获得了" ' + window.shareGameResults.scorcesName + '" 的称号，不服来solo！！！';
+		this.desc= '噢耶！我得到了 '+ window.shareGameResults.levelName + ' 等级，获得了" ' + window.shareGameResults.scorcesName + '" 的称号，已超过 ' + window.shareGameResults.defeatNum + ' 名设计师，不服来solo！！！';
 	  },
       success: function () {
         // 用户确认分享后执行的回调函数
@@ -184,7 +185,7 @@ $signPackage = $jssdk->GetSignPackage();
 	  type: 'link', // 分享类型,music、video或link，不填默认为link
       dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
 	  trigger:function(){
-		this.desc= '噢耶！我得到了 '+ window.shareGameResults.levelName + ' 等级，获得了" ' + window.shareGameResults.scorcesName + '" 的称号，不服来solo！！！';
+		this.desc= '噢耶！我得到了 '+ window.shareGameResults.levelName + ' 等级，获得了" ' + window.shareGameResults.scorcesName + '" 的称号，已超过 ' + window.shareGameResults.defeatNum + ' 名设计师，不服来solo！！！';
 	  },
       success: function () {
         // 用户确认分享后执行的回调函数
@@ -199,7 +200,7 @@ $signPackage = $jssdk->GetSignPackage();
       link: 'http://game.hisihi.com/solo/start.php', // 分享链接
       imgUrl: 'http://game.hisihi.com/solo/area/images/home/sharelogo.png', // 分享图标	 
 	  trigger:function(){
-		this.title= '轰炸设计师 ——— 噢耶！我得到了 '+ window.shareGameResults.levelName + ' 等级，获得了" ' + window.shareGameResults.scorcesName + '" 的称号，不服来solo！！！';
+		this.title= '轰炸设计师 ——— 噢耶！我得到了 '+ window.shareGameResults.levelName + ' 等级，获得了" ' + window.shareGameResults.scorcesName + '" 的称号，已超过 ' + window.shareGameResults.defeatNum + ' 名设计师，不服来solo！！！';
 	  },
       success: function () {
         // 用户确认分享后执行的回调函数
